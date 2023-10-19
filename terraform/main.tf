@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_kms_key" "this" {
-  description             = "kms using in universidad santo tomas project"
+  description             = "kms using in university santo tomas project"
   deletion_window_in_days = 7
 }
 
@@ -12,7 +12,7 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 resource "aws_ecs_cluster" "this" {
-  name = "universidad-sato-tomas-app-python"
+  name = "university-sato-tomas-app-python"
 
   configuration {
     execute_command_configuration {
@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "test" {
     {
       account_id     = "636400435876"
       region         = "us-east-2"
-      container_name = "universidad-sato-tomas-app-python"
+      container_name = "university-sato-tomas-app-python"
       container_port = 5000
       ecr_name       = aws_ecr_repository.this.id
     }
@@ -87,7 +87,7 @@ resource "aws_ecs_service" "this" {
 
   load_balancer {
    target_group_arn = element(concat(module.alb.target_group_arns, []), 0)
-   container_name   = "universidad-sato-tomas-app-python"
+   container_name   = "university-sato-tomas-app-python"
    container_port   = 5000
  }
 }
