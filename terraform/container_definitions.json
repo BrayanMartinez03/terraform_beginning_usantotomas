@@ -1,0 +1,24 @@
+[
+    {
+      "portMappings": [
+          {
+            "protocol": "tcp",
+            "containerPort": ${container_port}
+          }
+      ],
+      "cpu": 128,
+      "essential": true,
+      "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/${ecr_name}:latest",
+      "memory": 512,
+      "memoryReservation": 256,
+      "name": "${container_name}",
+      "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-region": "${region}",
+            "awslogs-group": "/aws/ecs/${container_name}",
+            "awslogs-stream-prefix": "ecs"
+          }
+      }
+    }
+  ]
