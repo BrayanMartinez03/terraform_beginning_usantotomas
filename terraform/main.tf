@@ -8,11 +8,11 @@ resource "aws_kms_key" "this" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-  name = "/aws/ecs/universidad-sato-tomas-app-python"
+  name = "/aws/ecs/university-santo-tomas-app-python"
 }
 
 resource "aws_ecs_cluster" "this" {
-  name = "university-sato-tomas-app-python"
+  name = "university-santo-tomas-app-python"
 
   configuration {
     execute_command_configuration {
@@ -39,7 +39,7 @@ resource "aws_ecs_cluster_capacity_providers" "example" {
   }
 }
 
-resource "aws_ecs_task_definition" "test" {
+resource "aws_ecs_task_definition" "example" {
   family                   = "app-python"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "test" {
     {
       account_id     = "636400435876"
       region         = "us-east-2"
-      container_name = "university-sato-tomas-app-python"
+      container_name = "university-santo-tomas-app-python"
       container_port = 5000
       ecr_name       = aws_ecr_repository.this.id
     }
@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "test" {
 resource "aws_ecs_service" "this" {
   name            = "app-python"
   cluster         = aws_ecs_cluster.this.name
-  task_definition = aws_ecs_task_definition.test.arn
+  task_definition = aws_ecs_task_definition.example.arn
   desired_count   = 1
   network_configuration {
     subnets          = ["subnet-018df030d18797eee", "subnet-04b983dec4193a880", "subnet-01d2c38a9a9a74958"]
@@ -87,7 +87,7 @@ resource "aws_ecs_service" "this" {
 
   load_balancer {
    target_group_arn = element(concat(module.alb.target_group_arns, []), 0)
-   container_name   = "university-sato-tomas-app-python"
+   container_name   = "university-santo-tomas-app-python"
    container_port   = 5000
  }
 }
